@@ -75,13 +75,15 @@ Submit the form to get a response from the MoA Chatbot. The response will be dis
 
 ## File Structure
 
-MoA/
-app.py # Flask application
-bot.py # Main chatbot logic
-utils.py # Utility functions
-requirements.txt # Python dependencies
-templates/index.html # HTML template for the web interface
-static/style.css # CSS styles for the web interface
+- **MoA/**
+  - `app.py` - Flask application
+  - `bot.py` - Main chatbot logic
+  - `utils.py` - Utility functions
+  - `requirements.txt` - Python dependencies
+  - **templates/**
+    - `index.html` - HTML template for the web interface
+  - **static/**
+    - `style.css` - CSS styles for the web interface
 
 
 ## Acknowledgements
