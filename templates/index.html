@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MoA Chatbot</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+	<h1>MoA Chatbot</h1>
+	<form action="/chat" method="post">
+		<label for="model">Model:</label>
+		<input type="text" id="model" name="model" value="llama3-70b-8192">
+		
+		<label for="temperature">Temperature:</label>
+		<input type="text" id="temperature" name="temperature" value="0.7">
+		
+		<label for="max_tokens">Max Tokens:</label>
+		<input type="text" id="max_tokens" name="max_tokens" value="2048">
+		
+		<label for="instruction">Instruction:</label>
+		<textarea id="instruction" name="instruction" rows="4" cols="50"></textarea>
+		
+		<input type="submit" value="Submit">
+	</form>
+	
+	{% if output %}
+	<div class="response">
+		<h2>Response:</h2>
+		<p>{{ output }}</p>
+	</div>
+	{% endif %}
+</div>
+</body>
+</html>
