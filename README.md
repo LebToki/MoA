@@ -7,6 +7,9 @@ Welcome to the MoA (Mixture-of-Agents) Chatbot repository! This project leverage
 
 The MoA Chatbot utilizes a combination of open-source models to generate high-quality responses. This repository includes modifications that enable the MoA Chatbot to work with Groq, making it incredibly fast for local LLM inference.
 
+![image](https://github.com/LebToki/MoA/assets/957618/2ecc95fb-2197-4767-befd-a27974d30dcc)
+
+
 ## Features
 
 - **Multi-Model Integration**: Combines outputs from several models to produce the best possible response.
@@ -44,9 +47,9 @@ Ensure you have the following installed:
     Create a `.env` file in the root directory and add your API keys:
 
     ```
-    GROQ_API_KEY=your_groq_api_key
-    OPENAI_API_KEY=your_openai_api_key
-    DEBUG=0
+    GROQ_API_KEY="your_groq_api_key"
+    OPENAI_API_KEY="your_openai_api_key"
+    DEBUG=1
     ```
 
 ### Running the Application
