@@ -1,13 +1,15 @@
 # Mixture-of-Agents (MoA)
 # MoA Chatbot
 
-Welcome to the MoA (Mixture-of-Agents) Chatbot repository! This project leverages the collective strengths of multiple Large Language Models (LLMs) to enhance performance, achieving state-of-the-art results. MoA uses a layered architecture where each layer comprises several LLM agents, significantly outperforming traditional models.
+Welcome to the MoA (Mixture-of-Agents) Chatbot repository! This project leverages the collective strengths of multiple Large Language Models (LLMs) to enhance performance, achieving state-of-the-art results. MoA uses a layered architecture where each layer comprises several LLM agents, significantly outperforming traditional models. It now has persistant chats and topics creation and switching and employs SQLAlchemy and flask_session(s)
 
 ## Overview
 
 The MoA Chatbot utilizes a combination of open-source models to generate high-quality responses. This repository includes modifications that enable the MoA Chatbot to work with Groq, making it incredibly fast for local LLM inference.
 
-![image](https://github.com/LebToki/MoA/assets/957618/2ecc95fb-2197-4767-befd-a27974d30dcc)
+![Light Mode](https://github.com/LebToki/MoA/assets/957618/aac6e231-c131-4313-a9ea-4043c2e32218)
+![Dark Mode](https://github.com/LebToki/MoA/assets/957618/0486aa70-da5a-45a7-90e5-285c8c1b7e9a)
+
 This was done on the quick, obviously can be styled further and enhanced but for the proof of concept it works just fine!
 
 ## Features
