@@ -5,7 +5,7 @@ The MoA Grog Chatbot leverages a powerful combination of open-source models to g
 In addition to the core functionality, we've integrated a user-friendly web-based interface, replacing the previous command-line interaction. This interface provides a more accessible and visually appealing way to engage with the chatbot. While the current design serves as a proof of concept, demonstrating the chatbot's capabilities effectively, there is ample room for further styling and enhancements to refine the user experience.
 
 
-![enhanced interface](https://github.com/LebToki/MoA/assets/957618/ae2d1ced-b2a2-4b31-a34c-b85d3bf89bea)
+![enhanced interface](https://github.com/LebToki/MoA/assets/957618/dee5293a-f2dd-4053-88b8-35d7bde2f008)
 ![Light Mode](https://github.com/LebToki/MoA/assets/957618/aac6e231-c131-4313-a9ea-4043c2e32218)
 ![Dark Mode](https://github.com/LebToki/MoA/assets/957618/0486aa70-da5a-45a7-90e5-285c8c1b7e9a)
 ![persistant chat and topics](https://github.com/LebToki/MoA/assets/957618/6e2a5739-b775-4500-be7a-17e4266bafdb)
