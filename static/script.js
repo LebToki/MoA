@@ -1,29 +1,26 @@
 $(document).ready(function () {
-    // Load saved theme
-    const theme = localStorage.getItem('theme') || 'light-mode';
-    $('body').addClass(theme);
+    const body = $('body');
+    const toggleButton = $('#toggle-theme');
 
-    // Toggle theme on button click
-    $('#toggle-theme').click(function () {
-        $('body').toggleClass('light-mode dark-mode');
-
-        // Save the selected theme to localStorage
-        const currentTheme = $('body').hasClass('dark-mode') ? 'dark-mode' : 'light-mode';
-        localStorage.setItem('theme', currentTheme);
-
-        // Update button text
-        const buttonText = $('body').hasClass('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
-        $(this).text(buttonText);
+    toggleButton.on('click', function () {
+        body.toggleClass('dark-mode');
+        toggleButton.text(body.hasClass('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     });
 
-    // Reset conversation
-    $('#reset-conversation').click(function () {
-        $.post('/reset', function () {
-            location.reload();
-        });
-    });
+    // Preserve theme across page reloads
+    if (localStorage.getItem('theme') === 'dark') {
+        body.addClass('dark-mode');
+        toggleButton.text('Switch to Light Mode');
+    }
 
-    // Set initial button text
-    const initialButtonText = $('body').hasClass('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
-    $('#toggle-theme').text(initialButtonText);
+    toggleButton.on('click', function () {
+        body.toggleClass('dark-mode');
+        if (body.hasClass('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            toggleButton.text('Switch to Light Mode');
+        } else {
+            localStorage.setItem('theme', 'light');
+            toggleButton.text('Switch to Dark Mode');
+        }
+    });
 });
