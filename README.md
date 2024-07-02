@@ -61,7 +61,7 @@ Ensure you have the following installed:
     Open your web browser and navigate to the following URL to access the web-based interface: 
 
     ```sh
-    http://127.0.0.1:5000/
+    [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
      ```
 
 
