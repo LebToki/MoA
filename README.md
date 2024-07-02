@@ -18,9 +18,10 @@ In addition to the core functionality, we've integrated a user-friendly web-base
 - **High Performance**: Optimized for speed and efficiency with Groq.
 - **Flexible Configuration**: Easily configurable via environment variables and settings.
 - **Persistent Conversations**: Stores conversation data in an SQLite database for ongoing interactions.
-- **Light/Dark Mode**: Switch between light and dark themes for better usability.2. **Install Dependencies**:
+- **Light/Dark Mode**: Switch between light and dark themes for better usability.
 
-   ## Getting Started
+
+## Getting Started
 
 ### Prerequisites
 
