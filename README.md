@@ -1,7 +1,6 @@
-# Mixture-of-Agents (MoA)
 # MoA Chatbot
 
-Welcome to the MoA (Mixture-of-Agents) Chatbot repository! This project leverages the collective strengths of multiple Large Language Models (LLMs) to enhance performance, achieving state-of-the-art results. MoA uses a layered architecture where each layer comprises several LLM agents, significantly outperforming traditional models. It now has persistant chats and topics creation and switching and employs SQLAlchemy and flask_session(s)
+Welcome to the MoA (Mixture-of-Agents) Chatbot repository! This project leverages the collective strengths of multiple Large Language Models (LLMs) to enhance performance, achieving state-of-the-art results. MoA uses a layered architecture where each layer comprises several LLM agents, significantly outperforming traditional models.
 
 ## Overview
 
@@ -19,8 +18,10 @@ This was done on the quick, obviously can be styled further and enhanced but for
 - **Interactive Web Interface**: Provides a user-friendly web interface for interaction.
 - **High Performance**: Optimized for speed and efficiency with Groq.
 - **Flexible Configuration**: Easily configurable via environment variables and settings.
+- **Persistent Conversations**: Stores conversation data in an SQLite database for ongoing interactions.
+- **Light/Dark Mode**: Switch between light and dark themes for better usability.2. **Install Dependencies**:
 
-## Getting Started
+   ## Getting Started
 
 ### Prerequisites
 
@@ -50,20 +51,12 @@ Ensure you have the following installed:
     Create a `.env` file in the root directory and add your API keys:
 
     ```
-    GROQ_API_KEY="your_groq_api_key"
-    OPENAI_API_KEY="your_openai_api_key"
-    DEBUG=1
+    GROQ_API_KEY=your_groq_api_key
+    OPENAI_API_KEY=your_openai_api_key
+    DEBUG=0
     ```
 
 ### Running the Application
-
-1. **Start the Flask Application**:
-
-    ```sh
-    python app.py
-    ```
-
-2. **Access the Web Interface**:
 
     Open your web browser and go to `http://127.0.0.1:5000/`.
 
@@ -72,9 +65,13 @@ Ensure you have the following installed:
 - **Model**: Specify the model you want to use (default is `llama3-70b-8192`).
 - **Temperature**: Control the randomness of the output (default is `0.7`).
 - **Max Tokens**: Set the maximum number of tokens for the response (default is `2048`).
+- **Create your topics**: Enter your topics names in the text field.
+- **Choose your topic of choice**: by clicking on it and then the chat interface would load on your right.
 - **Instruction**: Enter your prompt or instruction in the text area.
+- **Theme Toggle**: Use the "Switch to Dark Mode" button to toggle between light and dark themes.
 
-Submit the form to get a response from the MoA Chatbot. The response will be displayed on the same page.
+Submit the form to get a response from the MoA Grog Chatbot. 
+The response will be displayed on the same page. You can create new conversation topics or reset all conversations from the sidebar.
 
 ## File Structure
 
@@ -85,8 +82,10 @@ Submit the form to get a response from the MoA Chatbot. The response will be dis
   - `requirements.txt` - Python dependencies
   - **templates/**
     - `index.html` - HTML template for the web interface
+    - `chat.html` - HTML template for the chat interface
   - **static/**
     - `style.css` - CSS styles for the web interface
+    - `script.css` - JavaScript for theme switching and UI enhancements
 
 
 ## Acknowledgements
