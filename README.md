@@ -127,7 +127,7 @@ For any questions or feedback, please open an issue in this repository.
 
 ---
 #  Get Involved
-Whether you're a developer, system integrator, or enterprise user, you can trust that we did everything possible to make it as smooth and easy as 1,2,3 to set up Chat with Ollama.
+Whether you're a developer, system integrator, or enterprise user, you can trust that we did everything possible to make it as smooth and easy as 1,2,3 to set up MoA Groq Chatbot.
 
 ⭐ Give us a star on GitHub 👆
 
