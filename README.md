@@ -45,6 +45,22 @@ Ensure you have the following installed:
     ```sh
     pip install -r requirements.txt
     ```
+    
+3. **List of Dependencies**
+
+- **openai**: OpenAI API client library.
+- **fire**: A Python library for creating command line interfaces.
+- **loguru**: A library to make logging in Python simpler and more readable.
+- **datasets**: Hugging Face's library for accessing and managing datasets.
+- **typer**: A library for building command line interface applications.
+- **rich**: A Python library for rich text and beautiful formatting in the terminal.
+- **Flask**: A micro web framework for Python.
+- **Flask-SQLAlchemy**: Adds SQLAlchemy support to Flask applications.
+- **Flask-Uploads**: A flexible library to handle file uploading in Flask.
+- **Werkzeug**: A comprehensive WSGI web application library.
+- **Flask-Migrate**: Handles SQLAlchemy database migrations for Flask applications using Alembic.
+- **PyMuPDF (fitz)**: A Python binding for MuPDF – a lightweight PDF and XPS viewer.
+- **python-docx**: A Python library for creating and updating Microsoft Word (.docx) files.
 
 3. **Set Up Environment Variables**:
 
