@@ -46,7 +46,7 @@ Ensure you have the following installed:
     pip install -r requirements.txt
     ```
     
-3. **List of Dependencies**
+2.1. **List of Dependencies**
 
 - **openai**: OpenAI API client library.
 - **fire**: A Python library for creating command line interfaces.
@@ -61,6 +61,7 @@ Ensure you have the following installed:
 - **Flask-Migrate**: Handles SQLAlchemy database migrations for Flask applications using Alembic.
 - **PyMuPDF (fitz)**: A Python binding for MuPDF – a lightweight PDF and XPS viewer.
 - **python-docx**: A Python library for creating and updating Microsoft Word (.docx) files.
+
 
 3. **Set Up Environment Variables**:
 
