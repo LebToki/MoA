@@ -137,7 +137,7 @@ This intuitive interface makes it easy to engage with the MoA Grog Chatbot, prov
 
 
 ## Changelog
-What's New in 1.4.0 · [Current Release Date]
+What's New in 1.1.0 · [02/07/2024]
 - Implemented Dark Mode Support: Switch between light and dark themes for better usability.
 - Enhanced UI/UX: Updated the styling of the chat interface, including better message formatting and improved layout.
 - Improved Form Layout: Grouped form inputs on a single row for better space utilization.
@@ -147,7 +147,7 @@ What's New in 1.4.0 · [Current Release Date]
 
 <details>
 <summary>Previous Releases</summary>
-Initial Release · [Initial Release Date]
+Initial Release · [01/07/2024]
 
 - Code Organization: Initial setup of the project with organized structure for controllers, models, and views.
 - Error Handling: Basic error handling for API requests and user inputs.
