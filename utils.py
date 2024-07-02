@@ -12,13 +12,12 @@ load_dotenv()
 
 DEBUG = int(os.environ.get("DEBUG", "0"))
 
-
 def generate_together(
-    model,
-    messages,
-    max_tokens=2048,
-    temperature=0.7,
-    streaming=False,
+        model,
+        messages,
+        max_tokens=2048,
+        temperature=0.7,
+        streaming=False,
 ):
 
     output = None
@@ -77,10 +76,10 @@ def generate_together(
 
 
 def generate_together_stream(
-    model,
-    messages,
-    max_tokens=2048,
-    temperature=0.7,
+        model,
+        messages,
+        max_tokens=2048,
+        temperature=0.7,
 ):
     endpoint = "https://api.groq.com/openai/v1/"
     client = openai.OpenAI(
@@ -99,10 +98,10 @@ def generate_together_stream(
 
 
 def generate_openai(
-    model,
-    messages,
-    max_tokens=2048,
-    temperature=0.7,
+        model,
+        messages,
+        max_tokens=2048,
+        temperature=0.7,
 ):
 
     client = openai.OpenAI(
@@ -137,8 +136,8 @@ def generate_openai(
 
 
 def inject_references_to_messages(
-    messages,
-    references,
+        messages,
+        references,
 ):
 
     messages = copy.deepcopy(messages)
@@ -163,21 +162,27 @@ Responses from models:"""
 
 
 def generate_with_references(
-    model,
-    messages,
-    references=[],
-    max_tokens=2048,
-    temperature=0.7,
-    generate_fn=generate_together,
+        model,
+        messages,
+        references=[],
+        max_tokens=2048,
+        temperature=0.7,
+        generate_fn=generate_together_stream,
 ):
-
     if len(references) > 0:
-
         messages = inject_references_to_messages(messages, references)
 
-    return generate_fn(
+    # Generate response using the provided generate function
+    response = generate_fn(
         model=model,
         messages=messages,
         temperature=temperature,
         max_tokens=max_tokens,
     )
+
+    # Check if the response is in the expected format
+    if hasattr(response, 'choices'):
+        return response
+    else:
+        return [{"choices": [{"delta": {"content": response}}]}]
+
