@@ -68,16 +68,21 @@ Ensure you have the following installed:
 
 ### Usage
 
-- **Model**: Specify the model you want to use (default is `llama3-70b-8192`).
-- **Temperature**: Control the randomness of the output (default is `0.7`).
-- **Max Tokens**: Set the maximum number of tokens for the response (default is `2048`).
-- **Create your topics**: Enter your topics names in the text field.
-- **Choose your topic of choice**: by clicking on it and then the chat interface would load on your right.
-- **Instruction**: Enter your prompt or instruction in the text area.
-- **Theme Toggle**: Use the "Switch to Dark Mode" button to toggle between light and dark themes.
+- **Model Selection**: Choose the model you want to use from the dropdown menu. The default model is llama3-70b-8192, which balances performance and speed.
+- **Temperature Control**: Adjust the temperature setting to control the randomness and creativity of the chatbot's responses. The default value is 0.7, providing a good balance between deterministic and varied outputs.
+- **Max Tokens**: Define the maximum number of tokens (words or characters) for the response. The default is 2048, which ensures comprehensive answers without overwhelming verbosity.
+- **Create Your Topics**: Easily create new conversation topics by entering your desired topic names in the text field provided. This helps organize your interactions and revisit previous conversations.
+- **Choose Your Topic**: Select a topic by clicking on it in the sidebar. The chat interface will load on the right, allowing you to continue your discussion seamlessly.
+- **Instruction Input**: Enter your prompt or instruction in the text area. This is where you ask questions or provide commands to the chatbot.
+- **Theme Toggle**: Enhance your user experience by switching between light and dark modes. Use the "Switch to Dark Mode" button to toggle themes based on your preference.
+- **Submit and View Responses**: After filling in the necessary fields, submit the form to receive a response from the MoA Grog Chatbot. The response will be displayed on the same page, within the chat interface. 
 
-Submit the form to get a response from the MoA Grog Chatbot. 
-The response will be displayed on the same page. You can create new conversation topics or reset all conversations from the sidebar.
+### Additional Features
+- **Create New Conversations**: Use the sidebar to create new conversation topics, helping you manage different discussions effectively.
+- **Reset All Conversations**:  If needed, reset all conversations from the sidebar to start fresh.
+
+This intuitive interface makes it easy to engage with the MoA Grog Chatbot, providing a seamless and interactive user experience.
+
 
 ## File Structure
 
