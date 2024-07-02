@@ -109,11 +109,17 @@ Ensure you have the following installed:
 
 This intuitive interface makes it easy to engage with the MoA Grog Chatbot, providing a seamless and interactive user experience.
 
+
 ### Planned Features
+![image](https://github.com/LebToki/MoA/assets/957618/ae2d1ced-b2a2-4b31-a34c-b85d3bf89bea)
+will merge those when the code stables up!
+
+
 - **Uploading Documents**: The MoA Groq Chatbot will support file uploads and interact with the content of the uploaded documents, adding functionality to handle file uploads, process the contents of these files, and integrate the results into the chatbot's conversation flow.
 - **Refine the styling**: With the latest Bootstrap and jQuery, we have room to enhance the UI/UX further.
 - **Chronological ordering**: Move recent chats to the top (DESC order) to cut down on scrolling.
 - **Further enhancement of the output**: Currently, not much has been implemented to control the output except basic styling. This is an area to be worked on based on various use cases.
+
 
 ## File Structure
 
