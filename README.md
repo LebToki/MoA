@@ -60,7 +60,7 @@ Ensure you have the following installed:
 
     Open your web browser and go to 
     
-    ```
+    ```[sh]
     http://127.0.0.1:5000/
     ```
 
