@@ -2,7 +2,7 @@
 
 The MoA Grog Chatbot leverages a powerful combination of open-source models to generate high-quality responses, ensuring both accuracy and relevance. This repository includes essential modifications to enable the MoA Chatbot to work seamlessly with Groq, resulting in incredibly fast local LLM inference.
 
-In addition to the core functionality, we've integrated a user-friendly web-based interface, replacing the previous command-line interaction. This interface provides a more accessible and visually appealing way to engage with the chatbot. While the current design serves as a proof of concept, demonstrating the chatbot's capabilities effectively, there is ample room for further styling and enhancements to refine the user experience.
+In addition to the core functionality, I've integrated a user-friendly web-based interface, replacing the previous command-line interaction. This interface provides a more accessible and visually appealing way to engage with the chatbot. While the current design serves as a proof of concept, demonstrating the chatbot's capabilities effectively, there is ample room for further styling and enhancements to refine the user experience.
 
 
 ![Light Mode](https://github.com/LebToki/MoA/assets/957618/aac6e231-c131-4313-a9ea-4043c2e32218)
@@ -92,6 +92,11 @@ Ensure you have the following installed:
 
 This intuitive interface makes it easy to engage with the MoA Grog Chatbot, providing a seamless and interactive user experience.
 
+### Planned Features
+- **Uploading Documents**: The MoA Groq Chatbot will support file uploads and interact with the content of the uploaded documents, adding functionality to handle file uploads, process the contents of these files, and integrate the results into the chatbot's conversation flow.
+- **Refine the styling**: With the latest Bootstrap and jQuery, we have room to enhance the UI/UX further.
+- **Chronological ordering**: Move recent chats to the top (DESC order) to cut down on scrolling.
+- **Further enhancement of the output**: Currently, not much has been implemented to control the output except basic styling. This is an area to be worked on based on various use cases.
 
 ## File Structure
 
