@@ -1,16 +1,22 @@
-# MoA Chatbot
+# MoA Grog Chatbot
 
-Welcome to the MoA (Mixture-of-Agents) Chatbot repository! This project leverages the collective strengths of multiple Large Language Models (LLMs) to enhance performance, achieving state-of-the-art results. MoA uses a layered architecture where each layer comprises several LLM agents, significantly outperforming traditional models.
+Welcome to the MoA (Mixture-of-Agents) Chatbot repository! 
+This project leverages the collective strengths of multiple Large Language Models (LLMs) to enhance performance, achieving state-of-the-art results. 
+MoA uses a layered architecture where each layer comprises several LLM agents, significantly outperforming traditional models.
 
-## Overview
+The MoA Grog Chatbot leverages a powerful combination of open-source models to generate high-quality responses, ensuring both accuracy and relevance. 
+This repository includes essential modifications to enable the MoA Chatbot to work seamlessly with Groq, resulting in incredibly fast local LLM inference.
 
-The MoA Chatbot utilizes a combination of open-source models to generate high-quality responses. This repository includes modifications that enable the MoA Chatbot to work with Groq, making it incredibly fast for local LLM inference.
+In addition to the core functionality, I've integrated a user-friendly web-based interface, replacing the previous command-line interaction. 
+This interface provides a more accessible and visually appealing way to engage with the chatbot. 
+While the current design serves as a proof of concept, demonstrating the chatbot's capabilities effectively, there is ample room for further styling and enhancements to refine the user experience.
+
 
 ![Light Mode](https://github.com/LebToki/MoA/assets/957618/aac6e231-c131-4313-a9ea-4043c2e32218)
 ![Dark Mode](https://github.com/LebToki/MoA/assets/957618/0486aa70-da5a-45a7-90e5-285c8c1b7e9a)
 ![persistant chat and topics](https://github.com/LebToki/MoA/assets/957618/6e2a5739-b775-4500-be7a-17e4266bafdb)
 
-This was done on the quick, obviously can be styled further and enhanced but for the proof of concept it works just fine!
+
 
 ## Features
 
