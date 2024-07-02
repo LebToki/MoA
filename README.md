@@ -2,9 +2,10 @@
 
 The MoA Grog Chatbot leverages a powerful combination of open-source models to generate high-quality responses, ensuring both accuracy and relevance. This repository includes essential modifications to enable the MoA Chatbot to work seamlessly with Groq, resulting in incredibly fast local LLM inference.
 
-In addition to the core functionality, I've integrated a user-friendly web-based interface, replacing the previous command-line interaction. This interface provides a more accessible and visually appealing way to engage with the chatbot. While the current design serves as a proof of concept, demonstrating the chatbot's capabilities effectively, there is ample room for further styling and enhancements to refine the user experience.
+In addition to the core functionality, we've integrated a user-friendly web-based interface, replacing the previous command-line interaction. This interface provides a more accessible and visually appealing way to engage with the chatbot. While the current design serves as a proof of concept, demonstrating the chatbot's capabilities effectively, there is ample room for further styling and enhancements to refine the user experience.
 
 
+![enhanced interface](https://github.com/LebToki/MoA/assets/957618/ae2d1ced-b2a2-4b31-a34c-b85d3bf89bea)
 ![Light Mode](https://github.com/LebToki/MoA/assets/957618/aac6e231-c131-4313-a9ea-4043c2e32218)
 ![Dark Mode](https://github.com/LebToki/MoA/assets/957618/0486aa70-da5a-45a7-90e5-285c8c1b7e9a)
 ![persistant chat and topics](https://github.com/LebToki/MoA/assets/957618/6e2a5739-b775-4500-be7a-17e4266bafdb)
@@ -19,6 +20,7 @@ In addition to the core functionality, I've integrated a user-friendly web-based
 - **Flexible Configuration**: Easily configurable via environment variables and settings.
 - **Persistent Conversations**: Stores conversation data in an SQLite database for ongoing interactions.
 - **Light/Dark Mode**: Switch between light and dark themes for better usability.
+
 
 
 ## Getting Started
@@ -111,9 +113,6 @@ This intuitive interface makes it easy to engage with the MoA Grog Chatbot, prov
 
 
 ### Planned Features
-![image](https://github.com/LebToki/MoA/assets/957618/ae2d1ced-b2a2-4b31-a34c-b85d3bf89bea)
-will merge those when the code stables up!
-
 
 - **Uploading Documents**: The MoA Groq Chatbot will support file uploads and interact with the content of the uploaded documents, adding functionality to handle file uploads, process the contents of these files, and integrate the results into the chatbot's conversation flow.
 - **Refine the styling**: With the latest Bootstrap and jQuery, we have room to enhance the UI/UX further.
@@ -134,7 +133,28 @@ will merge those when the code stables up!
   - **static/**
     - `style.css` - CSS styles for the web interface
     - `script.css` - JavaScript for theme switching and UI enhancements
+    - `bot.png` - favicon
 
+
+## Changelog
+What's New in 1.4.0 · [Current Release Date]
+- Implemented Dark Mode Support: Switch between light and dark themes for better usability.
+- Enhanced UI/UX: Updated the styling of the chat interface, including better message formatting and improved layout.
+- Improved Form Layout: Grouped form inputs on a single row for better space utilization.
+- Sidebar Adjustment: Reduced the sidebar width to 180px to provide more space for the main chat interface.
+- Document Upload Support: Added the ability to upload documents and interact with the content within the chatbot.
+- Improved Sorting: Ensured conversation messages are displayed in descending order to prioritize the most recent interactions.
+
+<details>
+<summary>Previous Releases</summary>
+Initial Release · [Initial Release Date]
+
+- Code Organization: Initial setup of the project with organized structure for controllers, models, and views.
+- Error Handling: Basic error handling for API requests and user inputs.
+- Front-end Enhancements: Initial design of the UI with Bootstrap and FontAwesome integration. Responsive design for better accessibility on all devices.
+- Performance Considerations: Basic optimizations for faster loading times.
+- Accessibility and Usability: Added alt attributes to all images for better accessibility.
+</details>
 
 ## Acknowledgements
 
