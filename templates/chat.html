@@ -1,82 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>MoA Grog Chatbot</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='bot.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MoA (Mixture of Agents) Chatbot - Chat Interface">
+    <title>{{ conversation.topic }} - MoA Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='bot.png') }}">
 </head>
-<body class="{{ 'dark-mode' if session.get('theme') == 'dark' else '' }}">
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-3 sidebar">
-			<h2>Conversations</h2>
-			<ul class="list-group">
-				{% for conv in conversations %}
-				<li class="list-group-item">
-					<a href="{{ url_for('chat', conv_id=conv.id) }}">{{ conv.topic }}</a>
-				</li>
-				{% endfor %}
-			</ul>
-			<form action="/new" method="post" class="mt-3">
-				<div class="form-group">
-					<label for="topic">New Topic:</label>
-					<input type="text" class="form-control" id="topic" name="topic" required>
-				</div>
-				<button type="submit" class="btn btn-primary">Create</button>
-			</form>
-			<form action="/reset" method="get" class="mt-3">
-				<button type="submit" class="btn btn-danger">Reset All</button>
-			</form>
-			<button id="toggle-theme" class="btn btn-secondary mt-3">{{ 'Switch to Light Mode' if session.get('theme') == 'dark' else 'Switch to Dark Mode' }}</button>
-		</div>
-		<div class="col-md-9 main-content">
-			<h1>{{ conversation.topic }}</h1>
-			<div class="chat-box">
-				{% for msg in messages %}
-				<div class="msg {{ 'user' if msg['role'] == 'user' else 'assistant' }}">
-					<strong>{{ msg['role'] }}</strong>:
-					<div class="response-content">{{ msg['content']|safe }}</div>
-				</div>
-				{% endfor %}
-			</div>
-			<form action="{{ url_for('chat', conv_id=conversation.id) }}" method="post" enctype="multipart/form-data" class="form-row align-items-center">
-				<div class="form-group col-md-3">
-					<label for="model">Model:</label>
-					<select class="form-control" id="model" name="model">
-						<option value="llama3-70b-8192">llama3-70b-8192</option>
-						<option value="llama3-8b-8192">llama3-8b-8192</option>
-						<option value="mixtral-8x7b-32768">mixtral-8x7b-32768</option>
-						<option value="gemma-7b-it">gemma-7b-it</option>
-					</select>
-				</div>
-				<div class="form-group col-md-2">
-					<label for="temperature">Temperature:</label>
-					<input type="text" class="form-control" id="temperature" name="temperature" value="0.7">
-				</div>
-				<div class="form-group col-md-2">
-					<label for="max_tokens">Max Tokens:</label>
-					<input type="text" class="form-control" id="max_tokens" name="max_tokens" value="2048">
-				</div>
-				<div class="form-group col-md-3">
-					<label for="file">Upload Document:</label>
-					<input type="file" class="form-control-file" id="file" name="file">
-				</div>
-				<div class="form-group col-md-2">
-					<label for="instruction">Instruction:</label>
-					<textarea class="form-control" id="instruction" name="instruction" rows="1"></textarea>
-				</div>
-				<div class="form-group col-md-12 text-center">
-					<button type="submit" class="btn btn-primary mt-3">Submit</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<body>
+    <div class="container-fluid">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">MoA Chatbot</div>
+            </div>
+
+            <ul class="conversations-list">
+                {% for conv in conversations %}
+                <li class="conversation-item">
+                    <a href="{{ url_for('chat', conv_id=conv.id) }}" 
+                       class="conversation-link {% if conv.id == conversation.id %}active{% endif %}">
+                        {{ conv.topic }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="sidebar-form">
+                <form action="/new" method="post" class="form-group">
+                    <label for="topic" class="form-label">New Conversation</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="topic" 
+                        name="topic" 
+                        placeholder="Enter conversation topic..."
+                        required
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="btn btn-primary btn-block mt-2">
+                        <span class="btn-icon">➕</span> Create Conversation
+                    </button>
+                </form>
+
+                <form action="/reset" method="get" class="mt-2">
+                    <button type="submit" class="btn btn-danger btn-block" 
+                            onclick="return confirm('Are you sure you want to reset all conversations? This cannot be undone.');">
+                        <span class="btn-icon">🗑️</span> Reset All
+                    </button>
+                </form>
+
+                <button id="theme-toggle" class="btn theme-toggle btn-block mt-2">
+                    <span class="btn-icon">🌙</span> Dark Mode
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="main-header">
+                <div class="conversation-title">{{ conversation.topic }}</div>
+            </div>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-container">
+                        {% for category, message in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="chat-container">
+                <div class="chat-box" id="chat-box">
+                    {% if messages %}
+                        {% for msg in messages %}
+                        <div class="message {{ msg['role'] }}">
+                            <div class="message-content">
+                                <div class="message-role">{{ msg['role'] }}</div>
+                                <div class="response-content">{{ msg['content']|safe }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <div class="empty-state-icon">💬</div>
+                            <div class="empty-state-text">
+                                Start the conversation by sending a message below.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <form action="{{ url_for('chat', conv_id=conversation.id) }}" 
+                      method="post" 
+                      enctype="multipart/form-data" 
+                      class="input-form"
+                      id="chat-form">
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label for="model">Model</label>
+                            <select class="form-control" id="model" name="model" required>
+                                <option value="llama-3.1-70b-versatile">Llama 3.1 70B Versatile</option>
+                                <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
+                                <option value="llama-3-70b-8192" selected>Llama 3 70B (Legacy)</option>
+                                <option value="llama-3-8b-8192">Llama 3 8B (Legacy)</option>
+                                <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+                                <option value="gemma-7b-it">Gemma 7B IT</option>
+                                <option value="qwen2.5-72b-instruct">Qwen2.5 72B Instruct</option>
+                                <option value="deepseek-r1-distill-llama-8b">DeepSeek R1 Distill Llama 8B</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-inline">
+                            <label for="temperature">Temperature</label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                id="temperature" 
+                                name="temperature" 
+                                value="0.7" 
+                                min="0" 
+                                max="2" 
+                                step="0.1"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group-inline">
+                            <label for="max_tokens">Max Tokens</label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                id="max_tokens" 
+                                name="max_tokens" 
+                                value="2048" 
+                                min="1" 
+                                max="32768"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group-inline">
+                            <label for="file">Upload Document</label>
+                            <input 
+                                type="file" 
+                                class="form-control-file" 
+                                id="file" 
+                                name="file"
+                                accept=".pdf,.docx,.txt"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="submit-section">
+                        <div class="form-group-inline instruction-input">
+                            <label for="instruction">Your Message</label>
+                            <textarea 
+                                class="form-control" 
+                                id="instruction" 
+                                name="instruction" 
+                                rows="1"
+                                placeholder="Type your message here... (Ctrl+Enter to send)"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="form-group-inline" style="align-self: flex-end;">
+                            <label style="opacity: 0;">Submit</label>
+                            <button type="submit" class="btn btn-primary submit-btn">
+                                <span class="btn-icon">📤</span> Send
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

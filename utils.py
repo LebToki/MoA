@@ -83,18 +83,35 @@ def generate_together_stream(
 ):
     endpoint = "https://api.groq.com/openai/v1/"
     client = openai.OpenAI(
-        api_key=os.environ.get("GROQ_API_KEY"), base_url=endpoint
+        api_key=os.environ.get("GROQ_API_KEY"), 
+        base_url=endpoint
     )
-    endpoint = "https://api.groq.com/openai/v1/chat/completions"
-    response = client.chat.completions.create(
-        model=model,
-        messages=messages,
-        temperature=temperature if temperature > 1e-4 else 0,
-        max_tokens=max_tokens,
-        stream=True,  # this time, we set stream=True
-    )
-
-    return response
+    
+    for sleep_time in [1, 2, 4, 8, 16, 32]:
+        try:
+            if DEBUG:
+                logger.debug(
+                    f"Streaming to model `{model}` with {len(messages)} messages."
+                )
+            
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=temperature if temperature > 1e-4 else 0,
+                max_tokens=max_tokens,
+                stream=True,
+            )
+            
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error in generate_together_stream: {str(e)}")
+            if sleep_time == 32:  # Last retry
+                raise
+            logger.info(f"Retry in {sleep_time}s..")
+            time.sleep(sleep_time)
+    
+    return None
 
 
 def generate_openai(
