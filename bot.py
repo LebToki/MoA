@@ -2,6 +2,7 @@ import datasets
 from functools import partial
 from loguru import logger
 from utils import (
+    generate_together,
     generate_together_stream,
     generate_with_references,
     DEBUG,
@@ -65,6 +66,7 @@ def process_fn(
         references=references,
         temperature=temperature,
         max_tokens=max_tokens,
+        generate_fn=generate_together,
     )
     if DEBUG:
         logger.info(
