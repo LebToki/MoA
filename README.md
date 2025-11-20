@@ -245,7 +245,7 @@ MoA/
 
 ## Changelog
 
-### Version 2.0.0 · [December 2024]
+### Version 2.0.1 · [November, 20th 2025]
 
 **Major Release - Complete UI Overhaul & Branding System**
 
