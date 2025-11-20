@@ -30,11 +30,10 @@
     }
 
     updateToggleButton() {
-      const button = document.getElementById('theme-toggle');
-      if (button) {
-        const icon = this.theme === 'dark' ? '☀️' : '🌙';
-        const text = this.theme === 'dark' ? 'Light Mode' : 'Dark Mode';
-        button.innerHTML = `<span class="btn-icon">${icon}</span> ${text}`;
+      const checkbox = document.getElementById('theme-toggle');
+      if (checkbox) {
+        // Checkbox checked = dark mode, unchecked = light mode
+        checkbox.checked = this.theme === 'dark';
       }
     }
 
@@ -49,10 +48,10 @@
         }
       });
 
-      // Setup toggle button
-      const toggleButton = document.getElementById('theme-toggle');
-      if (toggleButton) {
-        toggleButton.addEventListener('click', () => this.toggleTheme());
+      // Setup toggle switch
+      const toggleSwitch = document.getElementById('theme-toggle');
+      if (toggleSwitch) {
+        toggleSwitch.addEventListener('change', () => this.toggleTheme());
       }
     }
   }
@@ -105,18 +104,22 @@
     }
 
     init() {
-      // Auto-resize textarea
+        // Auto-resize textarea (chat input)
       const textarea = document.getElementById('instruction');
-      if (textarea) {
-        textarea.addEventListener('input', function() {
+      const chatInput = document.querySelector('.chat-input');
+      const inputElement = textarea || chatInput;
+      
+      if (inputElement) {
+        inputElement.addEventListener('input', function() {
           this.style.height = 'auto';
           this.style.height = Math.min(this.scrollHeight, 200) + 'px';
         });
 
-        // Handle Enter key (Ctrl+Enter to submit)
-        textarea.addEventListener('keydown', (e) => {
+        // Handle Enter key (Ctrl+Enter to submit, Shift+Enter for new line)
+        inputElement.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' && e.ctrlKey) {
-            const form = textarea.closest('form');
+            e.preventDefault();
+            const form = inputElement.closest('form');
             if (form) {
               form.submit();
             }
@@ -218,6 +221,12 @@
 
     // Initialize everything when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
+        // Set current year in footer
+        const yearElement = document.getElementById('current-year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+        
         // Initialize theme manager
         new ThemeManager();
 

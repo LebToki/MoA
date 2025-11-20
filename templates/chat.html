@@ -3,108 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MoA (Mixture of Agents) Chatbot - Chat Interface">
-    <title>{{ conversation.topic }} - MoA Chatbot</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>{{ conversation.topic }} - {{ app_name }}</title>
+    <meta name="title" content="{{ conversation.topic }} - {{ app_name }}">
+    <meta name="description" content="Chat conversation: {{ conversation.topic }}. {{ app_name }} - {{ app_description }}.{% if company_name != '{{COMPANY_NAME}}' %} Developed by {{ developer_name }} from {{ company_name }}.{% endif %}">
+    <meta name="keywords" content="AI chatbot, Mixture of Agents, MoA, AI assistant, chat conversation{% if company_name != '{{COMPANY_NAME}}' %}, {{ company_name }}{% endif %}">
+    <meta name="author" content="{% if developer_name != '{{DEVELOPER_NAME}}' %}{{ developer_name }}{% endif %}{% if company_name != '{{COMPANY_NAME}}' %} - {{ company_name }}{% endif %}">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="language" content="English">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{{ conversation.topic }} - {{ app_name }}">
+    <meta property="og:description" content="Chat conversation: {{ conversation.topic }}. {{ app_name }} - {{ app_description }}.{% if company_name != '{{COMPANY_NAME}}' %} Developed by {{ developer_name }} from {{ company_name }}.{% endif %}">
+    <meta property="og:image" content="{{ request.url_root }}{{ url_for('static', filename='images/og_banner.png') }}">
+    <meta property="og:image:secure_url" content="{{ request.url_root }}{{ url_for('static', filename='images/og_banner.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ app_name }} - {{ app_description }}">
+    {% if company_name != '{{COMPANY_NAME}}' %}
+    <meta property="og:site_name" content="{{ company_name }}">
+    {% endif %}
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:title" content="{{ conversation.topic }} - {{ app_name }}">
+    <meta name="twitter:description" content="Chat conversation: {{ conversation.topic }}. {{ app_name }} - {{ app_description }}.{% if company_name != '{{COMPANY_NAME}}' %} Developed by {{ developer_name }} from {{ company_name }}.{% endif %}">
+    <meta name="twitter:image" content="{{ request.url_root }}{{ url_for('static', filename='images/og_banner.png') }}">
+    <meta name="twitter:image:alt" content="{{ app_name }} - {{ app_description }}">
+    {% if company_name != '{{COMPANY_NAME}}' %}
+    <meta name="twitter:site" content="@{{ company_name|replace(' ', '') }}">
+    {% endif %}
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="{{ app_name }}">
+    {% if company_name != '{{COMPANY_NAME}}' %}
+    <meta name="application-name" content="{{ company_name }}">
+    {% endif %}
+    
+    <!-- Bootstrap 5.3.2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconify Icons - Load early for icons to render -->
+    <script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@3/dist/iconify.min.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='bot.png') }}">
 </head>
 <body>
-    <div class="container-fluid">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-title">MoA Chatbot</div>
+    <!-- Modern Sidebar -->
+    <div class="modern-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo" style="display: flex; align-items: center; gap: 10px;">
+                <iconify-icon icon="mingcute:grok-fill" style="font-size: 28px; color: var(--accent);"></iconify-icon>
+                <span>{{ app_name }}</span>
             </div>
-
-            <ul class="conversations-list">
+            <p style="color: var(--text-secondary); font-size: 14px;">{{ app_description }}</p>
+            {% if company_name != '{{COMPANY_NAME}}' %}
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--glass-border);">
+                <a href="{{ company_url }}" target="_blank" style="display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 12px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">
+                    {% if company_logo %}
+                    <img src="{{ url_for('static', filename='images/' + company_logo) }}" alt="{{ company_name }}" class="header-logo" style="padding: 5px !important; width: 200px !important; height: auto !important; max-width: 100%;" onerror="this.style.display='none'">
+                    {% endif %}
+                </a>
+                {% if developer_name != '{{DEVELOPER_NAME}}' %}
+                <div style="margin-top: 4px; font-size: 11px; color: var(--text-secondary); opacity: 0.7;">
+                    by {{ developer_name }}
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <ul class="sidebar-nav">
+            <li class="sidebar-nav-item">
+                <a href="{{ url_for('home') }}" class="sidebar-nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="chat-sessions">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span style="font-weight: 600; font-size: 14px; color: var(--text-secondary);">Conversations</span>
+            </div>
+            <div id="chat-sessions-list">
                 {% for conv in conversations %}
-                <li class="conversation-item">
-                    <a href="{{ url_for('chat', conv_id=conv.id) }}" 
-                       class="conversation-link {% if conv.id == conversation.id %}active{% endif %}">
-                        {{ conv.topic }}
+                <div class="chat-session-item {% if conv.id == conversation.id %}active{% endif %}">
+                    <a href="{{ url_for('chat', conv_id=conv.id) }}" style="text-decoration: none; color: var(--text-primary); display: block;">
+                        <div style="font-size: 13px; font-weight: 500;">{{ conv.topic }}</div>
+                        <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">
+                            {{ conv.updated_at.strftime('%b %d, %Y') if conv.updated_at else '' }}
+                        </div>
                     </a>
-                </li>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
+        </div>
 
-            <div class="sidebar-form">
-                <form action="/new" method="post" class="form-group">
-                    <label for="topic" class="form-label">New Conversation</label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="topic" 
-                        name="topic" 
-                        placeholder="Enter conversation topic..."
-                        required
-                        autocomplete="off"
-                    >
-                    <button type="submit" class="btn btn-primary btn-block mt-2">
-                        <span class="btn-icon">➕</span> Create Conversation
-                    </button>
-                </form>
-
-                <form action="/reset" method="get" class="mt-2">
-                    <button type="submit" class="btn btn-danger btn-block" 
-                            onclick="return confirm('Are you sure you want to reset all conversations? This cannot be undone.');">
-                        <span class="btn-icon">🗑️</span> Reset All
-                    </button>
-                </form>
-
-                <button id="theme-toggle" class="btn theme-toggle btn-block mt-2">
-                    <span class="btn-icon">🌙</span> Dark Mode
+        <div class="sidebar-form" style="margin-top: auto; padding-top: 24px; border-top: 1px solid var(--glass-border);">
+            <form action="/new" method="post" class="form-group">
+                <label for="topic" class="form-label" style="font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">New Conversation</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="topic" 
+                    name="topic" 
+                    placeholder="Enter conversation topic..."
+                    required
+                    autocomplete="off"
+                    style="background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 10px 12px; border-radius: 8px; font-size: 13px;"
+                >
+                <button type="submit" class="btn btn-primary btn-block mt-2" style="width: 100%; margin-top: 12px; padding: 10px; border-radius: 8px; background: var(--primary-gradient); border: none; color: white; font-weight: 500;">
+                    <i class="fas fa-plus"></i> Create Conversation
                 </button>
-            </div>
-        </aside>
+            </form>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="main-header">
-                <div class="conversation-title">{{ conversation.topic }}</div>
+            <form action="/reset" method="get" class="mt-2">
+                <button type="submit" class="btn btn-danger btn-block" 
+                        onclick="return confirm('Are you sure you want to reset all conversations? This cannot be undone.');"
+                        style="width: 100%; margin-top: 8px; padding: 10px; border-radius: 8px; background: var(--danger); border: none; color: white; font-weight: 500;">
+                    <i class="fas fa-trash"></i> Reset All
+                </button>
+            </form>
+
+            <div class="theme-toggle-container" style="display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding: 10px 12px; border-radius: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border);">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-sun" style="font-size: 14px; color: var(--text-secondary);"></i>
+                    <span style="font-size: 13px; color: var(--text-primary); font-weight: 500;">Light</span>
+                </div>
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-slider"></span>
+                </label>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 13px; color: var(--text-primary); font-weight: 500;">Dark</span>
+                    <i class="fas fa-moon" style="font-size: 14px; color: var(--text-secondary);"></i>
+                </div>
             </div>
-            
-            {% with messages = get_flashed_messages(with_categories=true) %}
+        </div>
+
+        {% if github_username != '{{GITHUB_USERNAME}}' %}
+        <!-- GitHub Community Section - Compact at bottom -->
+        <div class="github-community" style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--glass-border);">
+            <div style="font-weight: 600; font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                <i class="fab fa-github" style="font-size: 14px;"></i>
+                <span>Community</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                <a href="https://github.com/{{ github_username }}/{{ github_repo }}" target="_blank" class="github-link" style="display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--text-primary); background: var(--glass-bg); transition: all 0.2s; font-size: 11px;">
+                    <i class="fas fa-star" style="font-size: 11px;"></i>
+                    <span>Star</span>
+                </a>
+                <a href="https://github.com/{{ github_username }}/{{ github_repo }}/fork" target="_blank" class="github-link" style="display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--text-primary); background: var(--glass-bg); transition: all 0.2s; font-size: 11px;">
+                    <i class="fas fa-code-branch" style="font-size: 11px;"></i>
+                    <span>Fork</span>
+                </a>
+                <a href="https://github.com/{{ github_username }}/{{ github_repo }}/issues" target="_blank" class="github-link" style="display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--text-primary); background: var(--glass-bg); transition: all 0.2s; font-size: 11px;">
+                    <i class="fas fa-bug" style="font-size: 11px;"></i>
+                    <span>Issues</span>
+                </a>
+                <a href="https://github.com/{{ github_username }}/{{ github_repo }}/issues" target="_blank" class="github-link" style="display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--text-primary); background: var(--glass-bg); transition: all 0.2s; font-size: 11px;">
+                    <i class="fas fa-comments" style="font-size: 11px;"></i>
+                    <span>Issues</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="modern-header">
+            <div style="display: flex; gap: 12px; align-items: center; padding-left: 24px; flex: 1;">
+                <h1 class="text-gradient" style="margin: 0; font-size: 20px; font-weight: 700;">{{ conversation.topic }}</h1>
+                {% if github_username != '{{GITHUB_USERNAME}}' %}
+                <div class="header-actions" style="flex-shrink: 0; display: flex; gap: 12px; align-items: center;">
+                    <a href="https://github.com/{{ github_username }}/{{ github_repo }}" target="_blank" class="btn-icon" title="View on GitHub" style="text-decoration: none; color: inherit; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='var(--glass-bg)'" onmouseout="this.style.background='transparent'">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container" style="padding: 16px 24px;">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}" style="padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; color: white;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="chat-container" style="flex: 1; height: 100%; display: flex; flex-direction: column;">
+            <div class="chat-messages" id="chat-messages" style="flex: 1; overflow-y: auto; padding: 24px; padding-bottom: 80px;">
                 {% if messages %}
-                    <div class="flash-container">
-                        {% for category, message in messages %}
-                            <div class="flash-message flash-{{ category }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
+                    {% for msg in messages %}
+                    <div class="message {{ msg['role'] }}">
+                        <div class="message-content">
+                            <div class="response-content">{{ msg['content']|safe }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="chat-empty-state" id="empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                        <div class="bot-avatar-large" style="margin-bottom: 24px;">
+                            <iconify-icon icon="mingcute:grok-fill" style="font-size: 64px; color: var(--accent); opacity: 0.7;"></iconify-icon>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 16px;">Start the conversation by sending a message below.</p>
                     </div>
                 {% endif %}
-            {% endwith %}
+            </div>
 
-            <div class="chat-container">
-                <div class="chat-box" id="chat-box">
-                    {% if messages %}
-                        {% for msg in messages %}
-                        <div class="message {{ msg['role'] }}">
-                            <div class="message-content">
-                                <div class="message-role">{{ msg['role'] }}</div>
-                                <div class="response-content">{{ msg['content']|safe }}</div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="empty-state">
-                            <div class="empty-state-icon">💬</div>
-                            <div class="empty-state-text">
-                                Start the conversation by sending a message below.
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-
+            <div class="chat-input-container" style="padding: 16px 24px; border-top: 1px solid var(--glass-border); background: var(--dark-surface);">
                 <form action="{{ url_for('chat', conv_id=conversation.id) }}" 
                       method="post" 
                       enctype="multipart/form-data" 
                       class="input-form"
                       id="chat-form">
-                    <div class="form-row">
+                    <div class="form-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 12px;">
                         <div class="form-group-inline">
-                            <label for="model">Model</label>
-                            <select class="form-control" id="model" name="model" required>
+                            <label for="model" style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Model</label>
+                            <select class="form-control model-select" id="model" name="model" required style="background: var(--dark-surface); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 8px 12px; border-radius: 8px; font-size: 13px;">
                                 <option value="llama-3.1-70b-versatile">Llama 3.1 70B Versatile</option>
                                 <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
                                 <option value="llama-3-70b-8192" selected>Llama 3 70B (Legacy)</option>
@@ -117,7 +254,7 @@
                         </div>
 
                         <div class="form-group-inline">
-                            <label for="temperature">Temperature</label>
+                            <label for="temperature" style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Temperature</label>
                             <input 
                                 type="number" 
                                 class="form-control" 
@@ -128,11 +265,12 @@
                                 max="2" 
                                 step="0.1"
                                 required
+                                style="background: var(--dark-surface); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 8px 12px; border-radius: 8px; font-size: 13px;"
                             >
                         </div>
 
                         <div class="form-group-inline">
-                            <label for="max_tokens">Max Tokens</label>
+                            <label for="max_tokens" style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Max Tokens</label>
                             <input 
                                 type="number" 
                                 class="form-control" 
@@ -142,45 +280,73 @@
                                 min="1" 
                                 max="32768"
                                 required
+                                style="background: var(--dark-surface); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 8px 12px; border-radius: 8px; font-size: 13px;"
                             >
                         </div>
 
                         <div class="form-group-inline">
-                            <label for="file">Upload Document</label>
+                            <label for="file" style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Upload Document</label>
                             <input 
                                 type="file" 
                                 class="form-control-file" 
                                 id="file" 
                                 name="file"
                                 accept=".pdf,.docx,.txt"
+                                style="background: var(--dark-surface); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 8px 12px; border-radius: 8px; font-size: 13px; cursor: pointer;"
                             >
                         </div>
                     </div>
 
-                    <div class="submit-section">
-                        <div class="form-group-inline instruction-input">
-                            <label for="instruction">Your Message</label>
-                            <textarea 
-                                class="form-control" 
-                                id="instruction" 
-                                name="instruction" 
-                                rows="1"
-                                placeholder="Type your message here... (Ctrl+Enter to send)"
-                                required
-                            ></textarea>
-                        </div>
-                        <div class="form-group-inline" style="align-self: flex-end;">
-                            <label style="opacity: 0;">Submit</label>
-                            <button type="submit" class="btn btn-primary submit-btn">
-                                <span class="btn-icon">📤</span> Send
-                            </button>
-                        </div>
+                    <div class="chat-input-wrapper" style="display: flex; align-items: flex-end; gap: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px;">
+                        <textarea 
+                            class="chat-input" 
+                            id="instruction" 
+                            name="instruction" 
+                            rows="1"
+                            placeholder="Send a message..."
+                            required
+                            style="flex: 1; background: transparent; border: none; color: var(--text-primary); font-size: 15px; resize: none; outline: none; font-family: inherit; min-height: 24px; max-height: 200px;"
+                        ></textarea>
+                        <button type="submit" class="btn-icon primary" id="send-btn" style="background: var(--accent); border: none; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </div>
                 </form>
             </div>
-        </main>
-    </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                {% if developer_name != '{{DEVELOPER_NAME}}' or company_name != '{{COMPANY_NAME}}' %}
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary);">
+                    <span>Made with</span>
+                    <i class="fas fa-heart" style="color: #f85149; font-size: 14px;"></i>
+                    <span>
+                        {% if developer_name != '{{DEVELOPER_NAME}}' %}by {{ developer_name }}{% endif %}
+                        {% if company_name != '{{COMPANY_NAME}}' %}
+                        {% if developer_name != '{{DEVELOPER_NAME}}' %} from {% endif %}
+                        <a href="{{ company_url }}" target="_blank" style="color: var(--accent); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-hover)'" onmouseout="this.style.color='var(--accent)'">{{ company_name }}</a>
+                        {% endif %}
+                    </span>
+                </div>
+                {% endif %}
+                {% if github_username != '{{GITHUB_USERNAME}}' %}
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <a href="https://github.com/{{ github_username }}/{{ github_repo }}" target="_blank" style="color: var(--text-secondary); text-decoration: none; font-size: 12px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+                {% endif %}
+                <div style="font-size: 12px; color: var(--text-secondary);">
+                    <span>© <span id="current-year"></span> {{ app_name }}</span>
+                </div>
+            </div>
+        </footer>
+    </main>
 
+    <!-- Bootstrap 5.3.2 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

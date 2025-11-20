@@ -1,3 +1,12 @@
+# Fix for Flask-Uploads compatibility with newer Werkzeug versions
+import werkzeug
+if not hasattr(werkzeug, 'secure_filename'):
+    from werkzeug.utils import secure_filename as _secure_filename
+    werkzeug.secure_filename = _secure_filename
+if not hasattr(werkzeug, 'FileStorage'):
+    from werkzeug.datastructures import FileStorage
+    werkzeug.FileStorage = FileStorage
+
 from flask import Flask, request, render_template, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_uploads import UploadSet, configure_uploads, DOCUMENTS
@@ -7,16 +16,49 @@ from flask_migrate import Migrate
 import os
 import json
 import traceback
+import logging
+from logging.handlers import RotatingFileHandler
 
 # Ensure the 'uploads' directory exists
 if not os.path.exists('uploads'):
     os.makedirs('uploads')
 
+# Ensure the 'instance' directory exists for SQLite database
+if not os.path.exists('instance'):
+    os.makedirs('instance')
+
+# Ensure the 'logs' directory exists for log files
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+
 from utils import generate_with_references, generate_together_stream
+import config
 
 app = Flask(__name__)
+
+# Make branding config available to all templates
+@app.context_processor
+def inject_branding():
+    return {
+        'developer_name': config.DEVELOPER_NAME,
+        'company_name': config.COMPANY_NAME,
+        'company_url': config.COMPANY_URL,
+        'github_username': config.GITHUB_USERNAME,
+        'github_repo': config.GITHUB_REPO,
+        'company_logo': config.COMPANY_LOGO,
+        'app_name': config.APP_NAME,
+        'app_description': config.APP_DESCRIPTION
+    }
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', os.urandom(24).hex())
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/conversations.db'
+
+# Use absolute path for SQLite database on Windows
+instance_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance')
+if not os.path.exists(instance_path):
+    os.makedirs(instance_path)
+db_path = os.path.join(instance_path, 'conversations.db')
+# Convert Windows path to SQLite URI format (use forward slashes)
+db_path_uri = db_path.replace('\\', '/')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path_uri}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADED_FILES_DEST'] = 'uploads'
 app.config['UPLOADED_FILES_ALLOW'] = DOCUMENTS
@@ -27,6 +69,27 @@ migrate = Migrate(app, db)
 
 files = UploadSet('files', DOCUMENTS)
 configure_uploads(app, files)
+
+# Configure logging
+if not app.debug:
+    # Create logs directory if it doesn't exist
+    log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    
+    # Set up file handler with rotation
+    file_handler = RotatingFileHandler(
+        os.path.join(log_dir, 'moa_app.log'),
+        maxBytes=10240000,  # 10MB
+        backupCount=10
+    )
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    ))
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('MoA Chatbot application startup')
 
 
 class Conversation(db.Model):
