@@ -2,7 +2,7 @@
 
 A modern, feature-rich AI chatbot web application built with Flask, featuring multiple model support, document analysis, and a beautiful dark-themed UI with light/dark mode switching.
 
-[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/LebToki/Laragon-Dashboard)
+[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/LebToki/MoA)
 
 ![MoA Chatbot](assets/images/og_banner.png)
 
