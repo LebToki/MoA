@@ -2,12 +2,12 @@
 
 A modern, feature-rich AI chatbot web application built with Flask, featuring multiple model support, document analysis, and a beautiful dark-themed UI with light/dark mode switching.
 
-[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/LebToki/MoA)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/LebToki/MoA/blob/main/LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://your-docs-site.com)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/LebToki/MoA/releases/tag/v2.0.0)
+[![License](https://img.shields.io/badge/license-Custom%20with%20Branding%20Protection-green.svg)](https://github.com/LebToki/MoA/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://python.org)
-[![JavaScript](https://img.shields.io/badge/javascript-ES6%2B-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Flask](https://img.shields.io/badge/flask-3.0.0-lightgrey.svg)](https://flask.palletsprojects.com/)
 [![Platform](https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-lightgrey.svg)]()
+[![GitHub](https://img.shields.io/github/stars/LebToki/MoA?style=social)](https://github.com/LebToki/MoA)
 
 
 ![MoA Chatbot](assets/images/og_banner.png)
