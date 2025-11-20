@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moa-chatbot"
+version = "2.0.2"
+description = "A modern, feature-rich AI chatbot web application built with Flask, featuring multiple model support, document analysis, and a beautiful dark-themed UI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "Custom License with Branding Protection"}
+authors = [
+    {name = "Tarek Tarabichi", email = ""},
+    {name = "2TInteractive"}
+]
+keywords = ["chatbot", "ai", "flask", "llm", "mixture-of-agents", "moa"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "Flask>=3.0.0",
+    "Flask-SQLAlchemy>=3.1.1",
+    "Flask-Uploads>=0.2.1",
+    "Werkzeug>=3.0.1",
+    "Flask-Migrate>=4.0.5",
+    "pymupdf>=1.26.0",
+    "python-docx>=1.2.0",
+    "openai>=2.8.0",
+    "fire>=0.7.0",
+    "loguru>=0.7.3",
+    "datasets>=4.4.0",
+    "typer>=0.20.0",
+    "rich>=13.7.0",
+    "python-dotenv>=1.0.1",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+]
+
+[project.scripts]
+moa-bot = "bot:main"
+moa-app = "app:main"
+
+[project.urls]
+Homepage = "https://github.com/LebToki/MoA"
+Repository = "https://github.com/LebToki/MoA"
+Issues = "https://github.com/LebToki/MoA/issues"
+
+[tool.setuptools]
+packages = ["."]
+
+[tool.setuptools.package-data]
+"*" = ["*.txt", "*.md", "*.html", "*.css", "*.js", "*.png", "*.jpg", "*.webp"]
+
