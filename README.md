@@ -2,6 +2,14 @@
 
 A modern, feature-rich AI chatbot web application built with Flask, featuring multiple model support, document analysis, and a beautiful dark-themed UI with light/dark mode switching.
 
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/LebToki/MoA/releases/tag/v2.0.0)
+[![License](https://img.shields.io/badge/license-Custom%20with%20Branding%20Protection-green.svg)](https://github.com/LebToki/MoA/blob/main/LICENSE)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://python.org)
+[![Flask](https://img.shields.io/badge/flask-3.0.0-lightgrey.svg)](https://flask.palletsprojects.com/)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-lightgrey.svg)]()
+[![GitHub](https://img.shields.io/github/stars/LebToki/MoA?style=social)](https://github.com/LebToki/MoA)
+
+
 ![MoA Chatbot](assets/images/og_banner.png)
 
 ## Features
@@ -245,7 +253,7 @@ MoA/
 
 ## Changelog
 
-### Version 2.0.0 · [December 2024]
+### Version 2.0.1 · [November, 20th 2025]
 
 **Major Release - Complete UI Overhaul & Branding System**
 
@@ -407,11 +415,8 @@ _This chatbot is open-source and free to use. For enterprise features, custom in
 Whether you're a developer, system integrator, or enterprise user, you can trust that we did everything possible to make it as smooth and easy as 1,2,3 to set up MoA Chatbot.
 
 ⭐ **Give us a star on GitHub** 👆
-
 ⭐ **Fork the project on GitHub and contribute** 👆
-
 🚀 **Do you like to code?** You're more than welcome to contribute! Open an Issue to share your ideas!
-
 💡 **Got a feature suggestion?** Add your roadmap ideas
 
 ---
