@@ -16,6 +16,15 @@ A modern, feature-rich AI chatbot web application built with Flask, featuring mu
 - 📊 **Logging**: Comprehensive logging system for debugging and monitoring
 - 🎯 **Branding**: Fully customizable branding with company logos and information
 
+---
+
+## screenshots
+
+<img width="1909" height="909" alt="Home" src="https://github.com/user-attachments/assets/b0f98e26-55d8-4ba0-8808-32d9e693f0d9" />
+<img width="1911" height="911" alt="Chat" src="https://github.com/user-attachments/assets/64d7595b-786f-4e0d-b591-2eb2d1b0d70e" />
+
+---
+
 ## Installation
 
 ### 1. Clone the Repository
