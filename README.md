@@ -3,6 +3,14 @@
 A modern, feature-rich AI chatbot web application built with Flask, featuring multiple model support, document analysis, and a beautiful dark-themed UI with light/dark mode switching.
 
 [![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/LebToki/MoA)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/LebToki/MoA/blob/main/LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/LebToki/MoA/build.yml)](https://github.com/LebToki/MoA/actions)
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://your-docs-site.com)
+[![Downloads](https://img.shields.io/npm/dt/your-package-name.svg)](https://www.npmjs.com/package/your-package-name)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://python.org)
+[![JavaScript](https://img.shields.io/badge/javascript-ES6%2B-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-lightgrey.svg)]()
+
 
 ![MoA Chatbot](assets/images/og_banner.png)
 
