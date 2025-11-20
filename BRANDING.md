@@ -1,93 +1,135 @@
 # Branding Configuration Guide
 
-This guide explains how to customize the branding elements in MoA Chatbot, similar to Chat-with-Ollama.
+## Important: License Requirements
 
-## Configuration Options
+This software is licensed with **branding protection**. The original branding attributions to **Tarek Tarabichi** and **2TInteractive** **MUST be retained** as required by the license. You may add your own branding alongside the required branding, but you cannot remove or replace it.
 
-All branding is configured through environment variables in your `.env` file or directly in `config.py`.
+## Required Branding (Always Displayed)
 
-### Required Branding Variables
+The following branding is **always displayed** and **cannot be removed**:
 
-Add these to your `.env` file:
+- **Developer**: Tarek Tarabichi
+- **Company**: 2TInteractive
+- **Company URL**: https://2tinteractive.com
+- **GitHub**: LebToki/MoA
+
+This branding appears in:
+- Sidebar header
+- Footer
+- Meta tags
+- GitHub community links
+
+## Adding Your Own Branding
+
+You can add your own branding **alongside** the required branding by setting these environment variables in your `.env` file:
 
 ```env
-# Developer/Author Information
-DEVELOPER_NAME=Your Name
-COMPANY_NAME=Your Company Name
-COMPANY_URL=https://yourcompany.com
-
-# GitHub Repository Information
-GITHUB_USERNAME=your-github-username
-GITHUB_REPO=MoA
-
-# Application Branding
-APP_NAME=MoA Chatbot
-APP_DESCRIPTION=Mixture of Agents
-
-# Logo (optional)
-COMPANY_LOGO=your-logo.png
+# Custom Branding (Optional - Added alongside required branding)
+CUSTOM_DEVELOPER_NAME=Your Name
+CUSTOM_COMPANY_NAME=Your Company Name
+CUSTOM_COMPANY_URL=https://yourcompany.com
+CUSTOM_COMPANY_LOGO=your-logo.png
 ```
 
-### Branding Elements
+### How It Works
 
-1. **Sidebar Header**
-   - App name and description
-   - Company logo (if provided)
-   - Developer name credit
+When you set custom branding:
+- **Required branding** (Tarek Tarabichi / 2TInteractive) is always shown first
+- **Your custom branding** appears below/alongside it
+- Both are displayed together, separated by a divider
 
-2. **GitHub Community Section** (in sidebar)
-   - Star on GitHub
-   - Fork & Contribute
-   - Report Issues
-   - Discussions
+### Example Display
 
-3. **Footer Credits** (in chat interface)
-   - "Made with ❤️ by [Developer] from [Company]"
-   - Company link
+**Sidebar:**
+```
+[2TInteractive Logo]
+by Tarek Tarabichi
 
-4. **Empty State** (home page)
-   - Footer credits with company branding
+---
+[Your Company Logo]
+by Your Name
+```
+
+**Footer:**
+```
+Made with ❤️ by Tarek Tarabichi from 2TInteractive | Your Name from Your Company
+```
+
+## Application Configuration
+
+You can customize the application name and description:
+
+```env
+APP_NAME=MoA Chatbot
+APP_DESCRIPTION=Mixture of Agents
+```
 
 ## Logo Setup
 
-1. Place your logo file in `static/images/` directory
-2. Supported formats: PNG, JPG, SVG, WEBP
-3. Recommended size: 200px width (height auto)
-4. Set `COMPANY_LOGO` in `.env` to your logo filename
+### Required Logo (2TInteractive)
+- Default logo: `static/images/2tinteractive-logo.png.webp`
+- This is always displayed
 
-Example:
+### Custom Logo (Optional)
+- Place your logo in: `static/images/`
+- Supported formats: PNG, JPG, SVG, WEBP
+- Set `CUSTOM_COMPANY_LOGO=your-logo.png` in `.env`
+
+## OG Banner
+
+For social media sharing, add your OG banner:
+- Location: `static/images/og_banner.png`
+- Recommended size: 1200x630 pixels
+- Format: PNG or JPG
+
+**Note**: The OG banner can be customized, but meta tags will still include required branding information.
+
+## License Compliance
+
+When using this software:
+
+✅ **You CAN:**
+- Add your own branding alongside required branding
+- Customize app name and description
+- Add your own logo
+- Use in commercial projects
+- Modify the code
+
+❌ **You CANNOT:**
+- Remove Tarek Tarabichi attribution
+- Remove 2TInteractive attribution
+- Hide or obscure the required branding
+- Replace the required branding with your own
+
+## Examples
+
+### Example 1: Personal Use
 ```env
-COMPANY_LOGO=2tinteractive-logo.png.webp
+CUSTOM_DEVELOPER_NAME=John Doe
+CUSTOM_COMPANY_NAME=My Startup
+CUSTOM_COMPANY_URL=https://mystartup.com
 ```
 
-## Default Values
+**Result**: Shows "by Tarek Tarabichi from 2TInteractive" AND "by John Doe from My Startup"
 
-If you don't set these variables, the app will use placeholder values:
-- `{{DEVELOPER_NAME}}`
-- `{{COMPANY_NAME}}`
-- `{{COMPANY_URL}}`
-- `{{GITHUB_USERNAME}}`
-
-When placeholders are used, the branding sections will be hidden automatically.
-
-## Quick Setup
-
-1. Copy your logo to `static/images/`
-2. Edit `.env` file with your branding information
-3. Restart the Flask application
-4. Your branding will appear throughout the application
-
-## Example .env Configuration
-
+### Example 2: Company Use
 ```env
-# Branding
-DEVELOPER_NAME=Tarek Tarabichi
-COMPANY_NAME=2TInteractive
-COMPANY_URL=https://2tinteractive.com
-GITHUB_USERNAME=LebToki
-GITHUB_REPO=MoA
-COMPANY_LOGO=2tinteractive-logo.png.webp
-APP_NAME=MoA Chatbot
-APP_DESCRIPTION=Mixture of Agents
+CUSTOM_COMPANY_NAME=Acme Corp
+CUSTOM_COMPANY_URL=https://acmecorp.com
+CUSTOM_COMPANY_LOGO=acme-logo.png
 ```
 
+**Result**: Shows 2TInteractive logo and branding, plus Acme Corp logo and branding
+
+### Example 3: No Custom Branding
+If you don't set any custom branding variables, only the required branding is shown.
+
+## Questions?
+
+For questions about branding or licensing:
+- Visit: https://2tinteractive.com
+- Open an issue: https://github.com/LebToki/MoA/issues
+
+---
+
+**Remember**: The license requires preserving the original branding. This ensures proper attribution while allowing you to add your own branding alongside it.

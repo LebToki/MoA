@@ -161,23 +161,36 @@ This intuitive interface makes it easy to engage with the MoA Chatbot, providing
 
 ## Branding Configuration
 
-The application supports full branding customization through environment variables. See `BRANDING.md` for detailed instructions.
+**Important**: This software is licensed with branding protection. The original branding (Tarek Tarabichi and 2TInteractive) **MUST be retained** as required by the license. You may add your own branding alongside it, but you cannot remove or replace it.
 
-**Quick Setup:**
+### Required Branding (Always Shown)
+
+The following branding is **always displayed** and cannot be removed:
+- **Developer**: Tarek Tarabichi
+- **Company**: 2TInteractive
+- **GitHub**: LebToki/MoA
+
+### Adding Your Own Branding
+
+You can add your own branding **alongside** the required branding:
+
 1. Copy `.env.example` to `.env`
-2. Update the branding variables:
+2. Add your custom branding (optional):
    ```env
-   DEVELOPER_NAME=Tarek Tarabichi
-   COMPANY_NAME=2TInteractive
-   COMPANY_URL=https://2tinteractive.com
-   GITHUB_USERNAME=LebToki
-   GITHUB_REPO=MoA
+   # Custom Branding (Added alongside required branding)
+   CUSTOM_DEVELOPER_NAME=Your Name
+   CUSTOM_COMPANY_NAME=Your Company Name
+   CUSTOM_COMPANY_URL=https://yourcompany.com
+   CUSTOM_COMPANY_LOGO=your-logo.png
+   
+   # Application Configuration
    APP_NAME=MoA Chatbot
    APP_DESCRIPTION=Mixture of Agents
-   COMPANY_LOGO=2tinteractive-logo.png.webp
    ```
-3. Place your company logo in `static/images/`
+3. Place your custom logo in `static/images/` (if using)
 4. Add your OG banner (1200x630px) to `static/images/og_banner.png`
+
+**See `BRANDING.md` for detailed instructions and examples.**
 
 ## Planned Features
 

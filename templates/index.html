@@ -7,9 +7,9 @@
     <!-- Primary Meta Tags -->
     <title>{{ app_name }} - {{ app_description }}</title>
     <meta name="title" content="{{ app_name }} - {{ app_description }}">
-    <meta name="description" content="{{ app_name }} - {{ app_description }}. Modern AI chatbot interface with multiple model support, document analysis, and customizable parameters.{% if company_name != '{{COMPANY_NAME}}' %} Developed by {{ developer_name }} from {{ company_name }}.{% endif %}">
-    <meta name="keywords" content="AI chatbot, Mixture of Agents, MoA, AI assistant, document analysis, chatbot{% if company_name != '{{COMPANY_NAME}}' %}, {{ company_name }}{% endif %}">
-    <meta name="author" content="{% if developer_name != '{{DEVELOPER_NAME}}' %}{{ developer_name }}{% endif %}{% if company_name != '{{COMPANY_NAME}}' %} - {{ company_name }}{% endif %}">
+    <meta name="description" content="{{ app_name }} - {{ app_description }}. Modern AI chatbot interface with multiple model support, document analysis, and customizable parameters. Developed by {{ required_developer_name }} from {{ required_company_name }}{% if custom_company_name %} and {{ custom_developer_name if custom_developer_name else '' }} from {{ custom_company_name }}{% endif %}.">
+    <meta name="keywords" content="AI chatbot, Mixture of Agents, MoA, AI assistant, document analysis, chatbot, {{ required_company_name }}{% if custom_company_name %}, {{ custom_company_name }}{% endif %}">
+    <meta name="author" content="{{ required_developer_name }} - {{ required_company_name }}{% if custom_developer_name %} | {{ custom_developer_name }}{% endif %}{% if custom_company_name %} - {{ custom_company_name }}{% endif %}">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     
@@ -17,35 +17,29 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
     <meta property="og:title" content="{{ app_name }} - {{ app_description }}">
-    <meta property="og:description" content="{{ app_name }} - {{ app_description }}. Modern AI chatbot interface with multiple model support, document analysis, and customizable parameters.{% if company_name != '{{COMPANY_NAME}}' %} Developed by {{ developer_name }} from {{ company_name }}.{% endif %}">
+    <meta property="og:description" content="{{ app_name }} - {{ app_description }}. Modern AI chatbot interface with multiple model support, document analysis, and customizable parameters. Developed by {{ required_developer_name }} from {{ required_company_name }}{% if custom_company_name %} and {{ custom_developer_name if custom_developer_name else '' }} from {{ custom_company_name }}{% endif %}.">
     <meta property="og:image" content="{{ request.url_root }}{{ url_for('static', filename='images/og_banner.png') }}">
     <meta property="og:image:secure_url" content="{{ request.url_root }}{{ url_for('static', filename='images/og_banner.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="{{ app_name }} - {{ app_description }}">
-    {% if company_name != '{{COMPANY_NAME}}' %}
-    <meta property="og:site_name" content="{{ company_name }}">
-    {% endif %}
+    <meta property="og:site_name" content="{{ required_company_name }}{% if custom_company_name %} & {{ custom_company_name }}{% endif %}">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ request.url }}">
     <meta name="twitter:title" content="{{ app_name }} - {{ app_description }}">
-    <meta name="twitter:description" content="{{ app_name }} - {{ app_description }}. Modern AI chatbot interface with multiple model support, document analysis, and customizable parameters.{% if company_name != '{{COMPANY_NAME}}' %} Developed by {{ developer_name }} from {{ company_name }}.{% endif %}">
+    <meta name="twitter:description" content="{{ app_name }} - {{ app_description }}. Modern AI chatbot interface with multiple model support, document analysis, and customizable parameters. Developed by {{ required_developer_name }} from {{ required_company_name }}{% if custom_company_name %} and {{ custom_developer_name if custom_developer_name else '' }} from {{ custom_company_name }}{% endif %}.">
     <meta name="twitter:image" content="{{ request.url_root }}{{ url_for('static', filename='images/og_banner.png') }}">
     <meta name="twitter:image:alt" content="{{ app_name }} - {{ app_description }}">
-    {% if company_name != '{{COMPANY_NAME}}' %}
-    <meta name="twitter:site" content="@{{ company_name|replace(' ', '') }}">
-    {% endif %}
+    <meta name="twitter:site" content="@{{ required_company_name|replace(' ', '') }}">
     
     <!-- Additional Meta Tags -->
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="{{ app_name }}">
-    {% if company_name != '{{COMPANY_NAME}}' %}
-    <meta name="application-name" content="{{ company_name }}">
-    {% endif %}
+    <meta name="application-name" content="{{ required_company_name }}{% if custom_company_name %} & {{ custom_company_name }}{% endif %}">
     
     <!-- Bootstrap 5.3.2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -71,16 +65,28 @@
                 <span>{{ app_name }}</span>
             </div>
             <p style="color: var(--text-secondary); font-size: 14px;">{{ app_description }}</p>
-            {% if company_name != '{{COMPANY_NAME}}' %}
+            <!-- Required Branding (Always Shown) -->
             <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--glass-border);">
-                <a href="{{ company_url }}" target="_blank" style="display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 12px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">
-                    {% if company_logo %}
-                    <img src="{{ url_for('static', filename='images/' + company_logo) }}" alt="{{ company_name }}" class="header-logo" style="padding: 5px !important; width: 200px !important; height: auto !important; max-width: 100%;" onerror="this.style.display='none'">
+                <a href="{{ required_company_url }}" target="_blank" style="display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 12px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">
+                    {% if required_company_logo %}
+                    <img src="{{ url_for('static', filename='images/' + required_company_logo) }}" alt="{{ required_company_name }}" class="header-logo" style="padding: 5px !important; width: 200px !important; height: auto !important; max-width: 100%;" onerror="this.style.display='none'">
                     {% endif %}
                 </a>
-                {% if developer_name != '{{DEVELOPER_NAME}}' %}
                 <div style="margin-top: 4px; font-size: 11px; color: var(--text-secondary); opacity: 0.7;">
-                    by {{ developer_name }}
+                    by {{ required_developer_name }}
+                </div>
+            </div>
+            <!-- Custom Branding (Optional - Shown if provided) -->
+            {% if custom_company_name %}
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--glass-border);">
+                <a href="{{ custom_company_url if custom_company_url else '#' }}" target="_blank" style="display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 12px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">
+                    {% if custom_company_logo %}
+                    <img src="{{ url_for('static', filename='images/' + custom_company_logo) }}" alt="{{ custom_company_name }}" class="header-logo" style="padding: 5px !important; width: 200px !important; height: auto !important; max-width: 100%;" onerror="this.style.display='none'">
+                    {% endif %}
+                </a>
+                {% if custom_developer_name %}
+                <div style="margin-top: 4px; font-size: 11px; color: var(--text-secondary); opacity: 0.7;">
+                    by {{ custom_developer_name }}
                 </div>
                 {% endif %}
             </div>
@@ -240,26 +246,28 @@
         <!-- Footer -->
         <footer class="app-footer">
             <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
-                {% if developer_name != '{{DEVELOPER_NAME}}' or company_name != '{{COMPANY_NAME}}' %}
+                <!-- Required Branding (Always Shown) -->
                 <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary);">
                     <span>Made with</span>
                     <i class="fas fa-heart" style="color: #f85149; font-size: 14px;"></i>
                     <span>
-                        {% if developer_name != '{{DEVELOPER_NAME}}' %}by {{ developer_name }}{% endif %}
-                        {% if company_name != '{{COMPANY_NAME}}' %}
-                        {% if developer_name != '{{DEVELOPER_NAME}}' %} from {% endif %}
-                        <a href="{{ company_url }}" target="_blank" style="color: var(--accent); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-hover)'" onmouseout="this.style.color='var(--accent)'">{{ company_name }}</a>
+                        by {{ required_developer_name }} from
+                        <a href="{{ required_company_url }}" target="_blank" style="color: var(--accent); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-hover)'" onmouseout="this.style.color='var(--accent)'">{{ required_company_name }}</a>
+                        {% if custom_company_name %}
+                        <span style="margin: 0 4px;">|</span>
+                        {% if custom_developer_name %}{{ custom_developer_name }}{% endif %}
+                        {% if custom_developer_name and custom_company_name %} from {% endif %}
+                        {% if custom_company_name %}
+                        <a href="{{ custom_company_url if custom_company_url else '#' }}" target="_blank" style="color: var(--accent); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-hover)'" onmouseout="this.style.color='var(--accent)'">{{ custom_company_name }}</a>
+                        {% endif %}
                         {% endif %}
                     </span>
                 </div>
-                {% endif %}
-                {% if github_username != '{{GITHUB_USERNAME}}' %}
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <a href="https://github.com/{{ github_username }}/{{ github_repo }}" target="_blank" style="color: var(--text-secondary); text-decoration: none; font-size: 12px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">
+                    <a href="https://github.com/{{ required_github_username }}/{{ required_github_repo }}" target="_blank" style="color: var(--text-secondary); text-decoration: none; font-size: 12px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">
                         <i class="fab fa-github"></i> GitHub
                     </a>
                 </div>
-                {% endif %}
                 <div style="font-size: 12px; color: var(--text-secondary);">
                     <span>© <span id="current-year"></span> {{ app_name }}</span>
                 </div>

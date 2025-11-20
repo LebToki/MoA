@@ -40,12 +40,26 @@ app = Flask(__name__)
 @app.context_processor
 def inject_branding():
     return {
+        # Required branding (always present per license)
+        'required_developer_name': config.REQUIRED_DEVELOPER_NAME,
+        'required_company_name': config.REQUIRED_COMPANY_NAME,
+        'required_company_url': config.REQUIRED_COMPANY_URL,
+        'required_github_username': config.REQUIRED_GITHUB_USERNAME,
+        'required_github_repo': config.REQUIRED_GITHUB_REPO,
+        'required_company_logo': config.COMPANY_LOGO,
+        # Custom branding (optional, shown alongside required)
+        'custom_developer_name': config.CUSTOM_DEVELOPER_NAME,
+        'custom_company_name': config.CUSTOM_COMPANY_NAME,
+        'custom_company_url': config.CUSTOM_COMPANY_URL,
+        'custom_company_logo': config.CUSTOM_COMPANY_LOGO,
+        # Legacy support
         'developer_name': config.DEVELOPER_NAME,
         'company_name': config.COMPANY_NAME,
         'company_url': config.COMPANY_URL,
         'github_username': config.GITHUB_USERNAME,
         'github_repo': config.GITHUB_REPO,
         'company_logo': config.COMPANY_LOGO,
+        # App config
         'app_name': config.APP_NAME,
         'app_description': config.APP_DESCRIPTION
     }
