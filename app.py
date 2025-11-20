@@ -33,6 +33,7 @@ if not os.path.exists('logs'):
 
 from utils import generate_with_references, generate_together_stream
 import config
+from update_checker import UpdateChecker, check_updates, update_application
 
 app = Flask(__name__)
 
@@ -298,8 +299,42 @@ def reset():
         return redirect(url_for('home'))
     except Exception as e:
         app.logger.error(f"Error resetting database: {str(e)}")
-        flash('Error resetting conversations.', 'error')
-        return redirect(url_for('home'))
+    flash('Error resetting conversations.', 'error')
+    return redirect(url_for('home'))
+
+
+@app.route('/api/check-updates', methods=['GET'])
+def api_check_updates():
+    """API endpoint to check for updates"""
+    try:
+        info = check_updates()
+        return jsonify({
+            'success': True,
+            'data': info
+        })
+    except Exception as e:
+        app.logger.error(f"Error checking for updates: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/update', methods=['POST'])
+def api_update():
+    """API endpoint to pull and apply updates"""
+    try:
+        success, message = update_application()
+        return jsonify({
+            'success': success,
+            'message': message
+        })
+    except Exception as e:
+        app.logger.error(f"Error updating application: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 
 def extract_content(file_path):

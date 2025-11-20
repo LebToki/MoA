@@ -147,6 +147,72 @@ Logs include:
 - API request errors
 - Database operations
 
+## Self-Update from Git Repository
+
+MoA Chatbot includes a built-in self-update mechanism that allows you to check for and apply updates directly from the git repository.
+
+### Checking for Updates
+
+**Windows:**
+- **Batch file:** Double-click `update.bat` or run it from Command Prompt
+- **PowerShell:** Run `.\update.ps1`
+- **Python command:**
+  ```powershell
+  python update.py --check
+  ```
+
+**Linux/Mac:**
+```sh
+python update.py --check
+```
+
+### Applying Updates
+
+**Windows:**
+- **Batch file:** Double-click `update.bat` and follow the prompts
+- **PowerShell:** Run `.\update.ps1` and follow the prompts
+- **Python command:**
+  ```powershell
+  python update.py --update
+  ```
+
+**Linux/Mac:**
+```sh
+python update.py --update
+```
+
+### Update Options
+
+The update script supports several options:
+
+```sh
+# Check for updates
+python update.py --check
+
+# Show detailed update information
+python update.py --info
+
+# Pull and apply updates
+python update.py --update
+
+# Automatically update if available
+python update.py --auto
+```
+
+### Update via API
+
+The Flask application also exposes API endpoints for checking and applying updates:
+
+- **Check for updates:** `GET /api/check-updates`
+- **Apply updates:** `POST /api/update`
+
+**Note:** Self-update requires:
+- The application to be in a git repository
+- Git to be installed and available in PATH
+- Network access to the remote repository
+
+After updating, you may need to restart the application for changes to take effect.
+
 ## Usage
 
 ### Interacting with the MoA Chatbot
