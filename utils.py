@@ -197,9 +197,13 @@ def generate_with_references(
         max_tokens=max_tokens,
     )
 
-    # Check if the response is in the expected format
-    if hasattr(response, 'choices'):
+    # Return the response as-is:
+    # - For non-streaming functions (like generate_together), return the string directly
+    # - For streaming functions (like generate_together_stream), return the streaming object
+    if isinstance(response, str):
+        return response
+    elif hasattr(response, 'choices'):
         return response
     else:
-        return [{"choices": [{"delta": {"content": response}}]}]
+        return response
 
